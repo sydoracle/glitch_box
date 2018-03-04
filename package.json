@@ -1,17 +1,17 @@
 {
-  "name": "sendgrid-quickstart",
+  "name": "sydoracle-sendmail",
   "version": "0.0.1",
-  "description": "Implentation of SendGrid's Quick Start app for Node.js",
+  "description": "Implementation of SendGrid's Quick Start app for Node.js",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
     "express": "^4.15.2",
-    "sendgrid": "*"
+    "@sendgrid/mail": "^6.2.1"
   },
   "engines": {
-    "node": "6.10.x"
+    "node": "9.x"
   },
   "repository": {
     "url": "https://github.com/sendgrid/sendgrid-nodejs"
