@@ -9,14 +9,6 @@ var app = express();
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-const msg = {
-  to: 'glitch_rcpt@sydoracle.com',
-  from: 'glitch_send@sydoracle.com',
-  subject: 'Sending with SendGrid is Fun',
-  text: 'and easy to do anywhere, even with Node.js',
-  html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-};
-
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
 
@@ -25,9 +17,27 @@ app.get("/", function (request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
 
-app.get("/bumble", function (request, response) {
+var msg = {
+  from: {name: 'Wife of Bard', email: 'glitch_send@sydoracle.com',},  
+  to: {name: 'Story Lover', email: 'glitch_rcpt@sydoracle.com',},  
+  subject: 'Enjoy your story from the Wife of bard',
+  };
+
+app.get("/send/:storyId", function (request, response) {
+  msg.html = "<strong>The End of" + request.params.storyId + "'>click here</a>";
+  console.log('Info:'+request.params.storyId+'.')
+  switch (request.params.storyId) {
+      case "Library":
+          msg.templateId = "d82ba63c-98c3-4a61-811e-866d54e9a196";
+          break; 
+      case "Stones":
+          msg.templateId = "???";
+          break; 
+      default: 
+          msg.templateId = "unk";
+  }
   sgMail.send(msg);
-  response.sendFile(__dirname + '/views/index.html');
+  response.sendFile(__dirname + '/views/sent.html');
 });
 
 // listen for requests :)
