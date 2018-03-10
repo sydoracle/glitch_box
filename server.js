@@ -1,7 +1,3 @@
-// server.js
-// where your node app starts
-
-
 // init project
 var express = require('express');
 var app = express();
@@ -31,13 +27,20 @@ app.get("/send/:storyId", function (request, response) {
           msg.templateId = "d82ba63c-98c3-4a61-811e-866d54e9a196";
           break; 
       case "Stones":
-          msg.templateId = "???";
+          msg.templateId = "586cd0c7-e05d-4f07-a396-94dc6df1a484";
           break; 
-      default: 
-          msg.templateId = "unk";
+      default:
+          break; 
   }
-  sgMail.send(msg);
-  response.sendFile(__dirname + '/views/sent.html');
+  if (typeof msg.templateId !== 'undefined') {
+    sgMail.send(msg);
+    response.sendFile(__dirname + '/views/sent.html');
+  }
+  else {
+     // some variable (global or local) "v" is defined in the current scope
+     // *and* it contains a value other than undefined
+    response.sendFile(__dirname + '/views/failed.html');
+  }
 });
 
 // listen for requests :)
