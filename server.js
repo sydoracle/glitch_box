@@ -13,6 +13,10 @@ app.get("/", function (request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
 
+app.get("/failed", function (request, response) {
+  response.sendFile(__dirname + '/views/failed.html');
+});
+
 var msg = {
   from: {name: 'Wife of Bard', email: 'glitch_send@sydoracle.com',},  
   to: {name: 'Story Lover', email: 'glitch_rcpt@sydoracle.com',},  
